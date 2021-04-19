@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/morris.css">
+    <link href="{{ url_for('static' , filename='styles/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='styles/css/style.css') }}">
 	<style type="text/css">
 		#line, #area, #bar, #donut {
 			width: 500px;
@@ -69,9 +68,9 @@
     </main>
 
 
-    <script src="bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="node_modules/chart.js/dist/chart.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="{{ url_for('static' , filename='styles/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static' , filename='styles/node_modules/chart.js/dist/chart.min.js') }}"></script>
+    <script src="{{ url_for('static' , filename='styles/js/script.js') }}"></script>
 
 </body>
 </html>

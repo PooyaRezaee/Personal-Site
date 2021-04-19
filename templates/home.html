@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="{{ url_for('static' , filename='styles/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='styles/css/style.css') }}">
 
     <title>Personal Site</title>
 </head>
 <body>
-    <header style="background-image: url('images/background2.jpg');" class="pt-5 pb-2">
+    <header style="background-image: url( {{ url_for('static' , filename='images/background.jpg') }} );" class="pt-5 pb-2">
 
         <div>
             <div class="text-center">
-                <img src="images/profile.jpg" alt="" class="myimage rounded-circle border border-1 border-secondary" width="190px" height="190px"> 
+                <img src="{{ url_for('static' , filename='images/profile.jpg') }}" alt="" class="myimage rounded-circle border border-1 border-secondary" width="190px" height="190px"> 
             </div>
             <h1 class="text-center text-light text-shadow">Pooya Rezaee Moghadam</h1>
             <div class="text-center">
@@ -82,11 +82,11 @@
                 <hr>
                 <div class="innderbox">
                     <a href="#" class="link-dark">
-                        <img src="images/background.jpg" alt="" class="img-thumbnail" width="300px" height="300px">
+                        <img src="{{ url_for('static' , filename='images/image_test.jpg') }}" alt="" class="img-thumbnail" width="300px" height="300px">
                         <p class="text-center">Proect Pie</p>
                     </a>
                     <a href="#" class="link-dark">
-                        <img src="images/background.jpg" alt="" class="img-thumbnail" width="300px" height="300px">
+                        <img src="{{ url_for('static' , filename='images/image_test.jpg') }}" alt="" class="img-thumbnail" width="300px" height="300px">
                         <p class="text-center">Proect Pie</p>
                     </a>
                 </div>
@@ -97,11 +97,11 @@
                 <hr>
                 <div class="innderbox">
                     <a href="#" class="link-dark">
-                        <img src="images/background.jpg" alt="" class="img-thumbnail" width="300px" height="300px">
+                        <img src="{{ url_for('static' , filename='images/image_test.jpg') }}" alt="" class="img-thumbnail" width="300px" height="300px">
                         <p class="text-center">Lpic 1</p>
                     </a>
                     <a href="#" class="link-dark">
-                        <img src="images/background.jpg" alt="" class="img-thumbnail" width="300px" height="300px">
+                        <img src="{{ url_for('static' , filename='images/image_test.jpg') }}" alt="" class="img-thumbnail" width="300px" height="300px">
                         <p class="text-center">Microsoft</p>
                     </a>
                 </div>
@@ -118,13 +118,13 @@
                 <li>instagram</li>
                 <li>pooya.rezaee.official@gmail.com</li>
                 <li>
-                    <a href="https://github.com" target="_blank"><img src="images/profile.jpg" alt="github" class="rounded-circle border border-1 border-danger" width="60px" height="60px"></a>
+                    <a href="https://github.com" target="_blank"><img src="{{ url_for('static' , filename='images/profile.jpg') }}" alt="github" class="rounded-circle border border-1 border-danger" width="60px" height="60px"></a>
                 </li>
             </ul>
         </div>
     </footer>
 
-    <script src="bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static' , filename='styles/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
 </body>
 </html>
