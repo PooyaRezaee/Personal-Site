@@ -1,24 +1,26 @@
 const labels = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '9',
-  '10',
-  '11',
-  '12'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
-
 const data = {
   labels: labels,
   datasets: [{
-    label: 'Visit from Site',
-    backgroundColor: 'rgb(60, 0, 109)',
-    borderColor: 'rgb(216, 27, 96)',
-    data: [10, 230, 451, 526, 242,202,100,500,200,200,200],
+    label: 'My First dataset',
+    borderColor: 'rgb(54, 162, 235)',
+    pointBorderColor: 'rgb(0,0,0)',
+    pointBorderWidth: '5',
+    data: [500 ,1000, 500, 200, 1000, 2000, 2500,2100,1700,1900,1500,1000],
+    fill:false,
   }]
 };
 
@@ -27,10 +29,6 @@ const config = {
   type: 'line',
   data,
   options:{
-    responsive:true,
-    title:{
-      display:false,
-    }
   }
 };
 
