@@ -36,3 +36,9 @@ def Login_post():
     
     session['permission'] = 'yes'
     return redirect(url_for('admin.Dashboard'))
+
+@admin.route('/logout/')
+def logout():
+    session.clear()
+
+    return redirect(url_for('Home'))
