@@ -4,10 +4,23 @@
 {% endblock %}
 
 {% block body %}
-        <form action="" class="bg-light bg-gradient p-5 shadow">
+        <form action="" class="bg-light bg-gradient p-5 shadow" method="POST">
+
+            {% with messages = get_flashed_messages(True) %}
+                {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ message[1] }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss='alert' aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                {% endif %}
+            {% endwith %}
+
             <h1 class="m-4">Login to Panel Admin</h1> <br>
-            <input type="text" placeholder="UserName" class="input-group filed"> <br>
-            <input type="password" placeholder="Password" class="input-group filed"> <br>
+            {{ form.hidden_tag() }}
+            {{ form.UserName }} <br>
+            {{ form.Password  }} <br>
             <input type="submit" value="Login" class="btn btn-dark text-center w-100 btn-login">
         </form>
 
