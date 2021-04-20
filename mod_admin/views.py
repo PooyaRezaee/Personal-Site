@@ -5,16 +5,24 @@ from .models import Admin
 
 @admin.route('/')
 def Dashboard():
+    if session.get('permission') != "yes":
+        flash("first Do Login !")
+        return redirect(url_for('admin.Login_get'))
+
     return render_template('mod_admin/dashboard.html')
 
 @admin.route('/login/',methods=["GET"])
 def Login_get():
+    if session.get('permission') == "yes":
+        return redirect(url_for('admin.Dashboard'))
     form = LoginForm()
 
     return render_template('mod_admin/login.html',form=form)
 
 @admin.route('/login/',methods=["POST"])
 def Login_post():
+    if session.get('permission') == "yes":
+        return redirect(url_for('admin.Dashboard'))
     form = LoginForm(request.form)
 
     if not form.validate_on_submit():
