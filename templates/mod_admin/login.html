@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-        <form action="" class="bg-light bg-gradient p-5 shadow" method="POST">
+        <form action="{{ url_for('admin.Login_post') }}" class="bg-light bg-gradient p-5 shadow" method="POST">
 
             {% with messages = get_flashed_messages(True) %}
                 {% if messages %}
