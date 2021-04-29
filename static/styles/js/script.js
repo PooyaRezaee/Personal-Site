@@ -1,3 +1,37 @@
+// Functions
+function Blur(Bool) {
+  if (Bool) {
+      document.getElementById("blur_background").style.display = "block";
+      document.getElementById("fade_background").style.display = "block";
+  }
+  else {
+      document.getElementById("blur_background").style.display = "none";
+      document.getElementById("fade_background").style.display = "none";
+  }
+}
+
+function popup(status,id) {
+  if (status == "open") {
+      Blur(true);
+      document.getElementById(id).style.display = "flex";
+  }
+  if (status == "close") {
+      Blur(false);
+      document.getElementById(id).style.display = "none";
+  }
+}
+
+function ChangeFormSetting(status,id) {            
+if (status == "open") {
+      document.getElementById(id).style.display = "block";
+      document.getElementById("settings").style.display = "none";
+  }
+  if (status == "close") {
+      document.getElementById(id).style.display = "none";
+      document.getElementById("settings").style.display = "block";
+  }
+}
+
 const labels = [
   'January',
   'February',

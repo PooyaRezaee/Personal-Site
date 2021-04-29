@@ -4,50 +4,130 @@
 {% endblock %}
 
 {% block body %}
+    <!-- Main View -->
     <main class="d-flex justify-content-between">
-
+        <!-- Setting Box -->
         <div class="w-15 p-3 align-self-center">
-            <ul class="list-group shadow">
+            <!-- Main View Box -->
+            <ul id="settings" class="list-group shadow" onvolumechange="console.log('tes')">
                 <li class="list-group-item active p-2 shadow text-center">
                     <h4>Settings</h4>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">Full Name</span>  <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">Full Name</span>  <button class="btn btn-outline-dark p-2 w-30" onclick="ChangeFormSetting('open','FullName_Box')">Set</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">Profile</span>    <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">Profile</span>    <button class="btn btn-outline-dark p-2 w-30" onclick="ChangeFormSetting('open','ProfileImage_box')">Set</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">background</span> <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">background</span> <button class="btn btn-outline-dark p-2 w-30" onclick="ChangeFormSetting('open','BackgroundImage_Box')">Set</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">   
-                    <span class="text-setting">About</span>      <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">About</span>      <button class="btn btn-outline-dark p-2 w-30" onclick="ChangeFormSetting('open','About_Box')">Set</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">Skills</span>     <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">Skills</span>     <button class="btn btn-outline-dark p-2" onclick="popup('open','skills_setting')">Chagnge</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">Work Sample</span><a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">Work Sample</span><button class="btn btn-outline-dark p-2" onclick="popup('open','work_sample_setting')">Chagnge</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">Documents</span>  <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">Documents</span>  <button class="btn btn-outline-dark p-2" onclick="popup('open','documents_setting')">Chagnge</button>
                 </li>
                 <li class="d-flex list-group-item justify-content-between p-2 shadow bg-light">
-                    <span class="text-setting">Content</span>    <a href="#" class="btn btn-outline-dark p-2 w-30">Set</a>
+                    <span class="text-setting">Content</span>    <button class="btn btn-outline-dark p-2" onclick="popup('open','contact_setting')">Chagnge</button>
                 </li>
             </ul>
+
+            <!-- Box Change Fullname -->
+            <div id="FullName_Box" style="display: none;">
+                <ul class="list-group shadow">
+                    <li class="list-group-item active p-2 shadow text-center">
+                        <h4>Full Name</h4>
+                    </li>
+                    <li class="list-group-item p-2 shadow bg-light">
+                        <form action="" id="" class="w-100 d-flex flex-column">
+                
+                            <input type="text" class="w-100 p-1 mb-5" placeholder="Your Name">
+                            <div class="d-flex ">
+                                <button type="submit" class="btn btn-success w-50">Set</button>
+                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','FullName_Box')">Back</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <!-- Box Change Image Profile -->
+            <div id="ProfileImage_box" style="display: none;">
+                <ul class="list-group shadow">
+                    <li class="list-group-item active p-2 shadow text-center">
+                        <h4>Profile Image</h4>
+                    </li>
+                    <li class="list-group-item p-2 shadow bg-light">
+                        <form action="" id="" class="w-100 d-flex flex-column">
+                
+                            <input type="file" accept="image/png, image/jpeg" class="w-100 p-1 mb-4 btn" style="border: none;"> <!-- TODO Change styles -->
+
+                            <div class="d-flex ">
+                                <button type="submit" class="btn btn-success w-50">Set</button>
+                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','ProfileImage_box')">Back</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <!-- Box Change Image Backfround -->
+            <div id="BackgroundImage_Box" style="display: none;">
+                <ul class="list-group shadow">
+                    <li class="list-group-item active p-2 shadow text-center">
+                        <h4>background Image</h4>
+                    </li>
+                    <li class="list-group-item p-2 shadow bg-light">
+                        <form action="" id="" class="w-100 d-flex flex-column">
+                
+                            <input type="file" accept="image/png, image/jpeg" class="w-100 p-1 mb-4 btn" style="border: none;"> <!-- TODO Change styles -->
+                        
+                            <div class="d-flex ">
+                                <button type="submit" class="btn btn-success w-50">Set</button>
+                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','BackgroundImage_Box')">Back</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <!-- Box Change About Me In Box Setting -->
+            <div id="About_Box" style="display: none;">
+                <ul class="list-group shadow">
+                    <li class="list-group-item active p-2 shadow text-center">
+                        <h4>About</h4>
+                    </li>
+                    <li class="list-group-item p-2 shadow bg-light">
+                        <form action="" id="" class="w-100 d-flex flex-column">
+                
+                            <textarea id="" name="" rows="4" cols="50" class="mb-4"></textarea>
+
+                            <div class="d-flex ">
+                                <button type="submit" class="btn btn-success w-50">Set</button>
+                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','About_Box')">Back</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-
+        <!-- buttons and chart -->
         <div class="w-100 d-flex flex-column m-2 h-100">
+            <!-- buttons change password and log out  -->
             <div class="align-self-end m-2">
-                <a href="" class="btn btn-warning">
+                <button class="btn btn-warning" onclick="popup('open','form_change_password')">
                     Change Password
-                </a>
+                </button>
                 <a href="{{ url_for('admin.logout') }}" class="btn btn-danger">
                     Logout
                 </a>
             </div>
+            <!-- Chart -->
             <div class="h-100 ">
                 <canvas id="myChart" class="bg-light bg-gradient"></canvas>
             </div>
@@ -55,6 +135,120 @@
 
     </main>
 
+    <!-- layers for blur and fade page for opening popup -->
+    <div id="fade_background"></div>
+    <div id="blur_background"></div>
+
+    <!-- popup form change Password -->
+    <div id="form_change_password" class="centeral-item">
+        <form action="" class="w-20 d-flex flex-column bg-light popup-form">
+            <h1 class="text-center p-2 shadow bg-warning">Change Passowrd</h1>
+            <br>
+            <input type="password" placeholder="OldPassword">
+            <br>
+            <input type="password" placeholder="NewPassword">
+            <input type="password" placeholder="ConfirmPassword">
+
+            <div class="d-flex justify-content-around mt-4">
+                <button type="submit" class="btn btn-success w-30">Change</button>
+                <button type="button" class="btn btn-danger w-30" onclick="popup('close','form_change_password')">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- popup form change Skills -->
+    <div id="skills_setting" class="centeral-item" style="display: none;">
+        <form  action="" class="popup-form bg-light bg-gradient w-25">
+            <h1 class="text-center p-2 shadow bg-warning">Change Skills</h1>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item active d-flex justify-content-between"><span class="w-50">Title</span> <span class="w-25">Percentige</span> <span class="w-20">Action</span></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Python</span> <span class="w-25">90%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Js</span> <span class="w-25">10%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Html</span> <span class="w-25">70%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Css</span> <span class="w-25">70%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+
+                <br>
+                <li class="list-group-item active bg-success text-center">Add</li>
+                <li class="list-group-item d-flex justify-content-between shadow">
+                    <input type="text" class="w-50" placeholder="Title"> <input type="number" class="w-25" placeholder="Percentige" min="0" max="100"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                </li><br>
+                
+                
+                
+            </ul>
+            <a href="#" class="btn btn-secondary d-block" onclick="popup('close','skills_setting')">Close</a>
+        </form>
+    </div>
+
+    <!-- popup form change work samples -->
+    <div id="work_sample_setting" class="centeral-item" style="display: none;">
+        <form  action="" class="popup-form bg-light bg-gradient w-25">
+            <h1 class="text-center p-2 shadow bg-warning">Change Work Samples</h1>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item active d-flex justify-content-between"><span class="w-30">Title</span> <span class="w-25">Image</span> <span class="w-20">Link</span> <span class="w-20">Action</span></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-30">Toplearn</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toplearn.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-30">Toptest</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toptest.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+
+                <br>
+                <li class="list-group-item active bg-success text-center">Add</li>
+                <li class="list-group-item d-flex justify-content-between shadow">
+                    <input type="text" class="w-30" placeholder="Title"> <input type="file" accept="image/png, image/jpeg" class="w-25 p-1" style="border: none;"> <input type="text" class="w-20" placeholder="Link"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                </li><br>
+                
+                
+                
+            </ul>
+            <a href="#" class="btn btn-secondary d-block" onclick="popup('close','work_sample_setting')">Close</a>
+        </form>
+    </div>
+
+    <!-- popup form change Documents -->
+    <div id="documents_setting" class="centeral-item" style="display: none;">
+        <form  action="" class="popup-form bg-light bg-gradient w-25">
+            <h1 class="text-center p-2 shadow bg-warning">Change Documents</h1>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item active d-flex justify-content-between"><span class="w-30">Title</span> <span class="w-25">Image</span> <span class="w-20">Link</span> <span class="w-20">Action</span></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-30">lpic 1</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toplearn.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-30">Lpic 2</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toptest.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+
+                <br>
+                <li class="list-group-item active bg-success text-center">Add</li>
+                <li class="list-group-item d-flex justify-content-between shadow">
+                    <input type="text" class="w-30" placeholder="Title"> <input type="file" accept="image/png, image/jpeg" class="w-25 p-1" style="border: none;"> <input type="text" class="w-20" placeholder="Link"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                </li><br>
+                
+                
+                
+            </ul>
+            <a href="#" class="btn btn-secondary d-block" onclick="popup('close','documents_setting')">Close</a>
+        </form>
+    </div>
+
+    <!-- popup form change Contact Ways -->
+    <div id="contact_setting" class="centeral-item" style="display: none;">
+        <form  action="" class="popup-form bg-light bg-gradient w-25">
+            <h1 class="text-center p-2 shadow bg-warning">Change contact way</h1>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item active d-flex justify-content-between"><span class="w-30">Title</span> <span class="w-25">Image</span> <span class="w-20">Link</span> <span class="w-20">Action</span></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-30">+989396231180</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toplearn.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item d-flex justify-content-between"><span class="w-30">  Github</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toptest.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+
+                <br>
+                <li class="list-group-item active bg-success text-center">Add</li>
+                <li class="list-group-item d-flex justify-content-between shadow">
+                    <input type="text" class="w-30" placeholder="Title"> <input type="file" accept="image/png, image/jpeg" class="w-25 p-1" style="border: none;"> <input type="text" class="w-20" placeholder="Link"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                </li><br>
+                
+                
+                
+            </ul>
+            <a href="#" class="btn btn-secondary d-block" onclick="popup('close','contact_setting')">Close</a>
+        </form>
+    </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
