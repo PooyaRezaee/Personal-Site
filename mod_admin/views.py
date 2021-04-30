@@ -1,7 +1,7 @@
 from . import admin
 from flask import render_template,request,abort,flash,redirect,url_for,session
-from .forms import LoginForm,SettingForms,ChangePassowrdForm
-from .models import Admin,Settings
+from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm
+from .models import Admin,Settings,Skills
 from app import db
 
 @admin.route('/',methods=["GET"])
@@ -9,17 +9,20 @@ def Dashboard():
     settings = Settings.query.first()
     settingform = SettingForms(obj=settings)
     changepassowrdform = ChangePassowrdForm()
+    skills = Skills.query.all()
+    skillform = SkillForm()
 
     if session.get('permission') != "yes":
         flash("first Do Login !","success")
         return redirect(url_for('admin.Login_get'))
 
-    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform)
+    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform)
 
 @admin.route('/<string:command>',methods=["POST"])
 def Commands(command):
     settingform = SettingForms()
     changepassowrdform = ChangePassowrdForm(request.form)
+    skillform = SkillForm(request.form)
 
     if settingform.validate_on_submit():
         settings = Settings.query.first()
@@ -44,8 +47,6 @@ def Commands(command):
             db.session.commit()
         except :
             flash("Error in Commit Data","danger")
-
-        return redirect(url_for('admin.Dashboard'))
     
     elif changepassowrdform.validate_on_submit():
         if command == "ch-p":
@@ -62,13 +63,33 @@ def Commands(command):
             admin.Password = changepassowrdform.NewPassword.data
             db.session.commit()
             flash("Password Changed","success")
-            return redirect(url_for('admin.Dashboard'))
-    
+
+    elif skillform.validate_on_submit():
+        if command == "a-s":
+            new_skill = Skills()
+            new_skill.Name = skillform.Name.data
+            new_skill.Value_skill = skillform.Value.data
+            db.session.add(new_skill)
+            db.session.commit()
+
+            flash("added Skill","success")
+
     else:
         return "Has Error"
     
-    print('ended')
+    return redirect(url_for('admin.Dashboard'))
 
+@admin.route('/<int:skill_id>')
+def delete_skill(skill_id):
+    try:
+        skill = Skills.query.get_or_404(skill_id)
+        db.session.delete(skill)
+        db.session.commit()
+        flash('Skill Deleted','success')
+    except:
+        flash('Has a problem in Delete Skill','danger')
+    
+    return redirect(url_for('admin.Dashboard'))
 
 @admin.route('/login/',methods=["GET"])
 def Login_get():

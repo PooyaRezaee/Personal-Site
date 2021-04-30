@@ -1,4 +1,4 @@
-from wtforms import StringField,PasswordField,TextAreaField,FileField
+from wtforms import StringField,PasswordField,TextAreaField,FileField,IntegerField
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 
@@ -17,3 +17,7 @@ class ChangePassowrdForm(FlaskForm):
     OldPassowrd = PasswordField(validators=[DataRequired()],render_kw={"placeholder":"old Password"})
     NewPassword = PasswordField(validators=[DataRequired()],render_kw={"placeholder":"new Password"})
     ConfirmPassword = PasswordField(validators=[DataRequired()],render_kw={"placeholder":"confirm password"})
+
+class SkillForm(FlaskForm):
+    Name = StringField(validators=[DataRequired()],render_kw={"placeholder":"Title","class":"w-50"})
+    Value = IntegerField(validators=[DataRequired()],render_kw={"placeholder":"Percentige","class":"w-25","min":"0","max":"100"})

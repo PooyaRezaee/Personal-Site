@@ -174,20 +174,20 @@
 
     <!-- popup form change Skills -->
     <div id="skills_setting" class="centeral-item" style="display: none;">
-        <form  action="" class="popup-form bg-light bg-gradient w-25">
+        <form  action="{{ url_for('admin.Commands'  , command='a-s') }}" class="popup-form bg-light bg-gradient w-25" method="POST">
             <h1 class="text-center p-2 shadow bg-warning">Change Skills</h1>
             <br>
             <ul class="list-group">
                 <li class="list-group-item active d-flex justify-content-between"><span class="w-50">Title</span> <span class="w-25">Percentige</span> <span class="w-20">Action</span></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Python</span> <span class="w-25">90%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Js</span> <span class="w-25">10%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Html</span> <span class="w-25">70%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-50">Css</span> <span class="w-25">70%</span> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                {% for skill in skills %}
+                    <li class="list-group-item d-flex justify-content-between"><span class="w-50">{{ skill.Name }}</span> <span class="w-25">{{ skill.Value_skill }}%</span> <a href="{{ url_for('admin.delete_skill', skill_id=skill.Id ) }}" class="btn btn-outline-danger w-20">Delete</a></li>
+                {% endfor %}
 
                 <br>
                 <li class="list-group-item active bg-success text-center">Add</li>
                 <li class="list-group-item d-flex justify-content-between shadow">
-                    <input type="text" class="w-50" placeholder="Title"> <input type="number" class="w-25" placeholder="Percentige" min="0" max="100"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                    {{ changepassowrdform.hidden_tag() }}
+                    {{ skillform.Name }} {{ skillform.Value }} <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
                 </li><br>
                 
                 
