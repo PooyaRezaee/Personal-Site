@@ -1,7 +1,7 @@
 from . import admin
 from flask import render_template,request,abort,flash,redirect,url_for,session
-from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm,WorkSampleForm
-from .models import Admin,Settings,Skills,Work_Sample
+from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm,WorkSampleForm,DocumentsForm
+from .models import Admin,Settings,Skills,Work_Sample,Documents
 from app import db
 import random
 import os
@@ -12,17 +12,19 @@ def Dashboard():
     skills = Skills.query.all()
     settings = Settings.query.first()
     work_samples = Work_Sample.query.all()
+    documents = Documents.query.all()
     # ============== FORMS ================
     settingform = SettingForms(obj=settings)
     changepassowrdform = ChangePassowrdForm()
     skillform = SkillForm()
     worksampleform = WorkSampleForm()
+    documentsform = DocumentsForm()
 
     if session.get('permission') != "yes":
         flash("first Do Login !","success")
         return redirect(url_for('admin.Login_get'))
 
-    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples)
+    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform)
 
 @admin.route('/<string:command>',methods=["POST"])
 def Commands(command):
@@ -30,6 +32,7 @@ def Commands(command):
     changepassowrdform = ChangePassowrdForm(request.form)
     skillform = SkillForm(request.form)
     worksampleform = WorkSampleForm()
+    documentsform = DocumentsForm()
 
     if settingform.validate_on_submit():
         settings = Settings.query.first()
@@ -95,8 +98,21 @@ def Commands(command):
             db.session.add(new_work_sample)
             db.session.commit()
             flash('Added Work Sample',"success")
+    
+    elif documentsform.validate_on_submit():
+        if command == "a-d":
+            new_document = Documents()
+            new_document.title = documentsform.Title.data
+            new_document.link = documentsform.Link.data
 
-
+            namefile = f"{random.randint(10000,99999)}_{documentsform.Image.data.filename}"
+            path_file = f"static/images/document/{namefile}"
+            documentsform.Image.data.save(path_file)
+            new_document.url_image = path_file.replace('static/','')
+            
+            db.session.add(new_document)
+            db.session.commit()
+            flash('Added Documents',"success")
     else:
         return "Has Error"
     
@@ -125,6 +141,20 @@ def delete_work_sample(work_sample_id):
         flash('Work Sample Deleted','success')
     except:
         flash('Has a problem in Work Sample','danger')
+    
+    return redirect(url_for('admin.Dashboard'))
+
+@admin.route('delete/document/<int:document_id>')
+def delete_document(document_id):
+    try:
+        document = Documents.query.get_or_404(document_id)
+        if document.url_image != None:
+            os.remove(f"static/{document.url_image}")
+        db.session.delete(document)
+        db.session.commit()
+        flash('document Deleted','success')
+    except :
+        flash(f'Has a problem in document => {e}','danger')
     
     return redirect(url_for('admin.Dashboard'))
 

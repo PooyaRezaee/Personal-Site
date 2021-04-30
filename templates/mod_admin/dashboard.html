@@ -211,14 +211,14 @@
                 {% for work_sample in work_samples %}
                     <li class="list-group-item d-flex justify-content-between">
                         <span class="w-30">{{ work_sample.title }}</span>
-                        <a href="link" class="w-25">
-                            {% if work_sample.url_image %}
-                                <img src="{{ url_for('static' , filename=work_sample.url_image) }}" alt="{{ work_sample.title }}" class="img-thumbnail" width="100px" width="50px">
-                            {% else %}
-                                <img src="" alt="{{ work_sample.title }}" class="img-thumbnail" width="100px" width="50px"> <!-- TODO Add img not avalible -->
-                            {% endif %}
+                        <a href="{{ url_for('static' , filename=work_sample.url_image) }}" class="w-25">
+                            <img src="{{ url_for('static' , filename=work_sample.url_image) }}" alt="{{ work_sample.title }}" class="img-thumbnail" width="100px" width="50px">
                         </a>
-                        <a href="{{ work_sample.link }}" target="_blank" class="w-20">Click</a> 
+                        {% if work_sample.link %}
+                            <a href="{{ work_sample.link }}" target="_blank" class="w-20">Click</a> 
+                        {% else %}
+                            <p>None</p>
+                        {% endif %}
                         <a href="{{ url_for('admin.delete_work_sample', work_sample_id=work_sample.Id ) }}" class="btn btn-outline-danger w-20">Delete</a></li>
                 {% endfor %}
 
@@ -242,18 +242,34 @@
 
     <!-- popup form change Documents -->
     <div id="documents_setting" class="centeral-item" style="display: none;">
-        <form  action="" class="popup-form bg-light bg-gradient w-25">
+        <form  action="{{ url_for('admin.Commands'  , command='a-d') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
             <h1 class="text-center p-2 shadow bg-warning">Change Documents</h1>
             <br>
             <ul class="list-group">
                 <li class="list-group-item active d-flex justify-content-between"><span class="w-30">Title</span> <span class="w-25">Image</span> <span class="w-20">Link</span> <span class="w-20">Action</span></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-30">lpic 1</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toplearn.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-30">Lpic 2</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toptest.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                {% for document in documents %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="w-30">{{ document.title }}</span> 
+                        <a href="{{ url_for('static' , filename=document.url_image) }}" class="w-25">
+                            <img src="{{ url_for('static' , filename=document.url_image) }}" alt="{{ document.title }}" class="img-thumbnail" width="100px" width="50px">
+                        </a>
+                        {% if document.link %}
+                            <a href="{{ document.link }}" target="_blank" class="w-20">Click</a> 
+                        {% else %}
+                            <p>None</p>
+                        {% endif %}
+                        <a href="{{ url_for('admin.delete_document', document_id=document.Id ) }}" class="btn btn-outline-danger w-20">Delete</a>
+                    </li>
+                {% endfor %}
 
                 <br>
                 <li class="list-group-item active bg-success text-center">Add</li>
                 <li class="list-group-item d-flex justify-content-between shadow">
-                    <input type="text" class="w-30" placeholder="Title"> <input type="file" accept="image/png, image/jpeg" class="w-25 p-1" style="border: none;"> <input type="text" class="w-20" placeholder="Link"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                    {{ documentsform.hidden_tag() }}
+                    {{ documentsform.Title }}
+                    {{ documentsform.Image }}
+                    {{ documentsform.Link }}
+                    <button type="submit" class="w-20 btn btn-outline-success">Add</button>
                 </li><br>
                 
                 
