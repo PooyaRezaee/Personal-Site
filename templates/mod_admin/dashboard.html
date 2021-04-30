@@ -8,7 +8,7 @@
     {% with messages = get_flashed_messages(True) %}
     {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-{{ message[0] }} alert-dismissible fade show" role="alert">
                     <strong>{{ message[1] }}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss='alert' aria-label="Close"></button>
                 </div>
@@ -63,7 +63,7 @@
                             
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
-                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','FullName_Box')">Back</button>
+                                <button type="reset" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','FullName_Box')">Back</button>
                             </div>
                         </form>
                     </li>
@@ -79,10 +79,11 @@
                         <form action="{{ url_for('admin.Commands'  , command='s-p') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
 
                             {{ setting_form.profile_image }}
+                            <a href="{{ url_for('static', filename='images/profile.jpg') }}" target="_blank" class="btn btn-primary mb-2">Current Image</a>
 
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
-                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','ProfileImage_box')">Back</button>
+                                <button type="reset" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','ProfileImage_box')">Back</button>
                             </div>
                         </form>
                     </li>
@@ -99,10 +100,11 @@
                 
 
                             {{ setting_form.background_image }}
-                        
+                            <a href="{{ url_for('static', filename='images/background.jpg') }}" target="_blank" class="btn btn-primary mb-2">Current Image</a>
+
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
-                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','BackgroundImage_Box')">Back</button>
+                                <button type="reset" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','BackgroundImage_Box')">Back</button>
                             </div>
                         </form>
                     </li>
@@ -121,7 +123,7 @@
 
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
-                                <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','About_Box')">Back</button>
+                                <button type="reset" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','About_Box')">Back</button>
                             </div>
                         </form>
                     </li>
@@ -154,17 +156,18 @@
 
     <!-- popup form change Password -->
     <div id="form_change_password" class="centeral-item">
-        <form action="" class="w-20 d-flex flex-column bg-light popup-form">
+        <form action="{{ url_for('admin.Commands'  , command='ch-p') }}" class="w-20 d-flex flex-column bg-light popup-form" method="POST">
             <h1 class="text-center p-2 shadow bg-warning">Change Passowrd</h1>
+            {{ changepassowrdform.hidden_tag() }}
             <br>
-            <input type="password" placeholder="OldPassword">
+            {{ changepassowrdform.OldPassowrd }}
             <br>
-            <input type="password" placeholder="NewPassword">
-            <input type="password" placeholder="ConfirmPassword">
+            {{ changepassowrdform.NewPassword }}
+            {{ changepassowrdform.ConfirmPassword }}
 
             <div class="d-flex justify-content-around mt-4">
                 <button type="submit" class="btn btn-success w-30">Change</button>
-                <button type="button" class="btn btn-danger w-30" onclick="popup('close','form_change_password')">Cancel</button>
+                <button type="reset" class="btn btn-danger w-30" onclick="popup('close','form_change_password')">Cancel</button>
             </div>
         </form>
     </div>
