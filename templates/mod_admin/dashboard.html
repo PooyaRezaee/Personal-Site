@@ -4,12 +4,23 @@
 {% endblock %}
 
 {% block body %}
+    <!-- Flash Message -->
+    {% with messages = get_flashed_messages(True) %}
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ message[1] }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss='alert' aria-label="Close"></button>
+                </div>
+            {% endfor %}
+    {% endif %}
+    {% endwith %}
     <!-- Main View -->
     <main class="d-flex justify-content-between">
         <!-- Setting Box -->
         <div class="w-15 p-3 align-self-center">
             <!-- Main View Box -->
-            <ul id="settings" class="list-group shadow" onvolumechange="console.log('tes')">
+            <ul id="settings" class="list-group shadow">
                 <li class="list-group-item active p-2 shadow text-center">
                     <h4>Settings</h4>
                 </li>
@@ -46,9 +57,10 @@
                         <h4>Full Name</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="" id="" class="w-100 d-flex flex-column">
-                
-                            <input type="text" class="w-100 p-1 mb-5" placeholder="Your Name">
+                        <form action="{{ url_for('admin.Commands'  , command='ch-n') }}" id="" class="w-100 d-flex flex-column" method="POST">
+
+                            {{ setting_form.FullName }}
+                            
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
                                 <button type="button" class="btn btn-danger w-50" onclick="ChangeFormSetting('close','FullName_Box')">Back</button>
@@ -64,9 +76,9 @@
                         <h4>Profile Image</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="" id="" class="w-100 d-flex flex-column">
-                
-                            <input type="file" accept="image/png, image/jpeg" class="w-100 p-1 mb-4 btn" style="border: none;"> <!-- TODO Change styles -->
+                        <form action="{{ url_for('admin.Commands'  , command='s-p') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
+
+                            {{ setting_form.profile_image }}
 
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
@@ -83,9 +95,10 @@
                         <h4>background Image</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="" id="" class="w-100 d-flex flex-column">
+                        <form action="{{ url_for('admin.Commands'  , command='s-b') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
                 
-                            <input type="file" accept="image/png, image/jpeg" class="w-100 p-1 mb-4 btn" style="border: none;"> <!-- TODO Change styles -->
+
+                            {{ setting_form.background_image }}
                         
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
@@ -102,9 +115,9 @@
                         <h4>About</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="" id="" class="w-100 d-flex flex-column">
+                        <form action="{{ url_for('admin.Commands'  , command='ch-a') }}" id="" class="w-100 d-flex flex-column" method="POST">
                 
-                            <textarea id="" name="" rows="4" cols="50" class="mb-4"></textarea>
+                            {{ setting_form.AboutME }}
 
                             <div class="d-flex ">
                                 <button type="submit" class="btn btn-success w-50">Set</button>
