@@ -21,3 +21,8 @@ class ChangePassowrdForm(FlaskForm):
 class SkillForm(FlaskForm):
     Name = StringField(validators=[DataRequired()],render_kw={"placeholder":"Title","class":"w-50"})
     Value = IntegerField(validators=[DataRequired()],render_kw={"placeholder":"Percentige","class":"w-25","min":"0","max":"100"})
+
+class WorkSampleForm(FlaskForm):
+    title = StringField(validators=[DataRequired()],render_kw={"placeholder":"Title","class":"w-30"})
+    image = FileField(validators=[DataRequired()],render_kw={"accept":"image/png, image/jpeg","class":"w-25 p-1","style":"border: none;"})
+    link = StringField(render_kw={"class":"w-20","placeholder":"Link"})

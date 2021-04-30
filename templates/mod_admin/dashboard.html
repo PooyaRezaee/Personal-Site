@@ -180,13 +180,17 @@
             <ul class="list-group">
                 <li class="list-group-item active d-flex justify-content-between"><span class="w-50">Title</span> <span class="w-25">Percentige</span> <span class="w-20">Action</span></li>
                 {% for skill in skills %}
-                    <li class="list-group-item d-flex justify-content-between"><span class="w-50">{{ skill.Name }}</span> <span class="w-25">{{ skill.Value_skill }}%</span> <a href="{{ url_for('admin.delete_skill', skill_id=skill.Id ) }}" class="btn btn-outline-danger w-20">Delete</a></li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="w-50">{{ skill.Name }}</span>
+                        <span class="w-25">{{ skill.Value_skill }}%</span> 
+                        <a href="{{ url_for('admin.delete_skill', skill_id=skill.Id ) }}" class="btn btn-outline-danger w-20">Delete</a>
+                    </li>
                 {% endfor %}
 
                 <br>
                 <li class="list-group-item active bg-success text-center">Add</li>
                 <li class="list-group-item d-flex justify-content-between shadow">
-                    {{ changepassowrdform.hidden_tag() }}
+                    {{ skillform.hidden_tag() }}
                     {{ skillform.Name }} {{ skillform.Value }} <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
                 </li><br>
                 
@@ -199,18 +203,34 @@
 
     <!-- popup form change work samples -->
     <div id="work_sample_setting" class="centeral-item" style="display: none;">
-        <form  action="" class="popup-form bg-light bg-gradient w-25">
+        <form  action="{{ url_for('admin.Commands'  , command='a-ws') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
             <h1 class="text-center p-2 shadow bg-warning">Change Work Samples</h1>
             <br>
             <ul class="list-group">
                 <li class="list-group-item active d-flex justify-content-between"><span class="w-30">Title</span> <span class="w-25">Image</span> <span class="w-20">Link</span> <span class="w-20">Action</span></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-30">Toplearn</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toplearn.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-30">Toptest</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toptest.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                {% for work_sample in work_samples %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="w-30">{{ work_sample.title }}</span>
+                        <a href="link" class="w-25">
+                            {% if work_sample.url_image %}
+                                <img src="{{ url_for('static' , filename=work_sample.url_image) }}" alt="{{ work_sample.title }}" class="img-thumbnail" width="100px" width="50px">
+                            {% else %}
+                                <img src="" alt="{{ work_sample.title }}" class="img-thumbnail" width="100px" width="50px"> <!-- TODO Add img not avalible -->
+                            {% endif %}
+                        </a>
+                        <a href="{{ work_sample.link }}" target="_blank" class="w-20">Click</a> 
+                        <a href="{{ url_for('admin.delete_work_sample', work_sample_id=work_sample.Id ) }}" class="btn btn-outline-danger w-20">Delete</a></li>
+                {% endfor %}
+
 
                 <br>
                 <li class="list-group-item active bg-success text-center">Add</li>
                 <li class="list-group-item d-flex justify-content-between shadow">
-                    <input type="text" class="w-30" placeholder="Title"> <input type="file" accept="image/png, image/jpeg" class="w-25 p-1" style="border: none;"> <input type="text" class="w-20" placeholder="Link"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                    {{ worksampleform.hidden_tag() }}
+                    {{ worksampleform.title }} 
+                    {{ worksampleform.image }}
+                    {{ worksampleform.link }}
+                    <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
                 </li><br>
                 
                 
