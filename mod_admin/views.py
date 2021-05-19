@@ -5,8 +5,10 @@ from .models import Admin,Settings,Skills,Work_Sample,Documents
 from app import db
 import random
 import os
+from .utils import only_admin
 
 @admin.route('/',methods=["GET"])
+@only_admin
 def Dashboard():
     # ============== Data ================
     skills = Skills.query.all()
@@ -20,13 +22,11 @@ def Dashboard():
     worksampleform = WorkSampleForm()
     documentsform = DocumentsForm()
 
-    if session.get('permission') != "yes":
-        flash("first Do Login !","success")
-        return redirect(url_for('admin.Login_get'))
 
     return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform)
 
 @admin.route('/save_background',methods=["POST"])
+@only_admin
 def Save_Background():
     settingform = SettingForms()
 
@@ -40,6 +40,7 @@ def Save_Background():
 
 
 @admin.route('/save_profile',methods=["POST"])
+@only_admin
 def Save_Profile():
     settingform = SettingForms()
 
@@ -54,6 +55,7 @@ def Save_Profile():
 
 
 @admin.route('/change_name',methods=["POST"])
+@only_admin
 def Change_Name():
     settingform = SettingForms()
     settings = Settings.query.first()
@@ -68,6 +70,7 @@ def Change_Name():
 
 
 @admin.route('/change_about',methods=["POST"])
+@only_admin
 def Change_Aboutme():
     settingform = SettingForms()
     settings = Settings.query.first()
@@ -81,6 +84,7 @@ def Change_Aboutme():
     return redirect(url_for('admin.Dashboard'))
 
 @admin.route('/change_password',methods=["POST"])
+@only_admin
 def change_password():
     changepassowrdform = ChangePassowrdForm(request.form)
     admin = Admin.query.first()
@@ -103,6 +107,7 @@ def change_password():
     return redirect(url_for('admin.Dashboard'))
 
 @admin.route('/add_skill',methods=["POST"])
+@only_admin
 def add_skills():
     skillform = SkillForm(request.form)
 
@@ -121,6 +126,7 @@ def add_skills():
 
 
 @admin.route('/add_work_sample',methods=["POST"])
+@only_admin
 def add_work_sample():
     worksampleform = WorkSampleForm()
 
@@ -143,6 +149,7 @@ def add_work_sample():
     return redirect(url_for('admin.Dashboard'))
 
 @admin.route('/add_document',methods=["POST"])
+@only_admin
 def add_document():
     documentsform = DocumentsForm()
 
@@ -167,6 +174,7 @@ def add_document():
 # TODO Add Func for add contect way
 
 @admin.route('delete/skill/<int:skill_id>')
+@only_admin
 def delete_skill(skill_id):
     try:
         skill = Skills.query.get_or_404(skill_id)
@@ -179,6 +187,7 @@ def delete_skill(skill_id):
     return redirect(url_for('admin.Dashboard'))
 
 @admin.route('delete/worksample/<int:work_sample_id>')
+@only_admin
 def delete_work_sample(work_sample_id):
     try:
         work_sample = Work_Sample.query.get_or_404(work_sample_id)
@@ -193,6 +202,7 @@ def delete_work_sample(work_sample_id):
     return redirect(url_for('admin.Dashboard'))
 
 @admin.route('delete/document/<int:document_id>')
+@only_admin
 def delete_document(document_id):
     try:
         document = Documents.query.get_or_404(document_id)
