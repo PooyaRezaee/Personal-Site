@@ -57,8 +57,8 @@
                         <h4>Full Name</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="{{ url_for('admin.Commands'  , command='ch-n') }}" id="" class="w-100 d-flex flex-column" method="POST">
-
+                        <form action="{{ url_for('admin.Change_Name') }}" id="" class="w-100 d-flex flex-column" method="POST">
+                            {{ setting_form.hidden_tag() }}
                             {{ setting_form.FullName }}
                             
                             <div class="d-flex ">
@@ -76,9 +76,10 @@
                         <h4>Profile Image</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="{{ url_for('admin.Commands'  , command='s-p') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
-
+                        <form action="{{ url_for('admin.Save_Profile') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
+                            {{ setting_form.hidden_tag() }}
                             {{ setting_form.profile_image }}
+
                             <a href="{{ url_for('static', filename='images/profile.jpg') }}" target="_blank" class="btn btn-primary mb-2">Current Image</a>
 
                             <div class="d-flex ">
@@ -96,10 +97,10 @@
                         <h4>background Image</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="{{ url_for('admin.Commands'  , command='s-b') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
-                
-
+                        <form action="{{ url_for('admin.Save_Background') }}" id="" class="w-100 d-flex flex-column" method="POST" enctype="multipart/form-data">
+                            {{ setting_form.hidden_tag() }}
                             {{ setting_form.background_image }}
+
                             <a href="{{ url_for('static', filename='images/background.jpg') }}" target="_blank" class="btn btn-primary mb-2">Current Image</a>
 
                             <div class="d-flex ">
@@ -117,8 +118,8 @@
                         <h4>About</h4>
                     </li>
                     <li class="list-group-item p-2 shadow bg-light">
-                        <form action="{{ url_for('admin.Commands'  , command='ch-a') }}" id="" class="w-100 d-flex flex-column" method="POST">
-                
+                        <form action="{{ url_for('admin.Change_Aboutme') }}" id="" class="w-100 d-flex flex-column" method="POST">
+                            {{ setting_form.hidden_tag() }}
                             {{ setting_form.AboutME }}
 
                             <div class="d-flex ">
@@ -156,7 +157,7 @@
 
     <!-- popup form change Password -->
     <div id="form_change_password" class="centeral-item">
-        <form action="{{ url_for('admin.Commands'  , command='ch-p') }}" class="w-20 d-flex flex-column bg-light popup-form" method="POST">
+        <form action="{{ url_for('admin.change_password') }}" class="w-20 d-flex flex-column bg-light popup-form" method="POST">
             <h1 class="text-center p-2 shadow bg-warning">Change Passowrd</h1>
             {{ changepassowrdform.hidden_tag() }}
             <br>
@@ -174,7 +175,7 @@
 
     <!-- popup form change Skills -->
     <div id="skills_setting" class="centeral-item" style="display: none;">
-        <form  action="{{ url_for('admin.Commands'  , command='a-s') }}" class="popup-form bg-light bg-gradient w-25" method="POST">
+        <form  action="{{ url_for('admin.add_skills') }}" class="popup-form bg-light bg-gradient w-25" method="POST">
             <h1 class="text-center p-2 shadow bg-warning">Change Skills</h1>
             <br>
             <ul class="list-group">
@@ -203,7 +204,7 @@
 
     <!-- popup form change work samples -->
     <div id="work_sample_setting" class="centeral-item" style="display: none;">
-        <form  action="{{ url_for('admin.Commands'  , command='a-ws') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
+        <form  action="{{ url_for('admin.add_work_sample'  , command='a-ws') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
             <h1 class="text-center p-2 shadow bg-warning">Change Work Samples</h1>
             <br>
             <ul class="list-group">
@@ -242,7 +243,7 @@
 
     <!-- popup form change Documents -->
     <div id="documents_setting" class="centeral-item" style="display: none;">
-        <form  action="{{ url_for('admin.Commands'  , command='a-d') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
+        <form  action="{{ url_for('admin.add_document') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
             <h1 class="text-center p-2 shadow bg-warning">Change Documents</h1>
             <br>
             <ul class="list-group">

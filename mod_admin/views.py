@@ -26,97 +26,145 @@ def Dashboard():
 
     return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform)
 
-@admin.route('/<string:command>',methods=["POST"])
-def Commands(command):
+@admin.route('/save_background',methods=["POST"])
+def Save_Background():
     settingform = SettingForms()
-    changepassowrdform = ChangePassowrdForm(request.form)
-    skillform = SkillForm(request.form)
-    worksampleform = WorkSampleForm()
-    documentsform = DocumentsForm()
 
     if settingform.validate_on_submit():
-        settings = Settings.query.first()
-
-        if command == "s-b":
-            settingform.background_image.data.save('static/images/background.jpg')
-            flash("Background Image Changed","success")
-
-        elif command == "s-p":
-            settingform.profile_image.data.save('static/images/profile.jpg')
-            flash("Profile Image Changed","success")
-
-        elif command == "ch-n":
-            settings.FullName = settingform.FullName.data
-            flash("You'r name Changed","success")
-
-        elif command == "ch-a":
-            settings.AboutME = settingform.AboutME.data
-            flash("About You Changed","success")
-        
-        try:
-            db.session.commit()
-        except :
-            flash("Error in Commit Data","danger")
-    
-    elif changepassowrdform.validate_on_submit():
-        if command == "ch-p":
-            admin = Admin.query.first()
-
-            if not admin.check_password(changepassowrdform.OldPassowrd.data):
-                flash('Password Wrong',"danger")
-                return redirect(url_for('admin.Dashboard'))
-
-            if not changepassowrdform.NewPassword.data == changepassowrdform.ConfirmPassword.data:
-                flash('passwords not match',"danger")
-                return redirect(url_for('admin.Dashboard'))
-
-            admin.Password = changepassowrdform.NewPassword.data
-            db.session.commit()
-            flash("Password Changed","success")
-
-    elif skillform.validate_on_submit():
-        if command == "a-s":
-            new_skill = Skills()
-            new_skill.Name = skillform.Name.data
-            new_skill.Value_skill = skillform.Value.data
-            db.session.add(new_skill)
-            db.session.commit()
-
-            flash("added Skill","success")
-
-    elif worksampleform.validate_on_submit():
-        if command == "a-ws":
-            new_work_sample = Work_Sample()
-            new_work_sample.title = worksampleform.title.data
-            new_work_sample.link = worksampleform.link.data
-
-            namefile = f"{random.randint(10000,99999)}_{worksampleform.image.data.filename}"
-            path_file = f"static/images/work_samples/{namefile}"
-            worksampleform.image.data.save(path_file)
-            new_work_sample.url_image = path_file.replace('static/','')
-            
-            db.session.add(new_work_sample)
-            db.session.commit()
-            flash('Added Work Sample',"success")
-    
-    elif documentsform.validate_on_submit():
-        if command == "a-d":
-            new_document = Documents()
-            new_document.title = documentsform.Title.data
-            new_document.link = documentsform.Link.data
-
-            namefile = f"{random.randint(10000,99999)}_{documentsform.Image.data.filename}"
-            path_file = f"static/images/document/{namefile}"
-            documentsform.Image.data.save(path_file)
-            new_document.url_image = path_file.replace('static/','')
-            
-            db.session.add(new_document)
-            db.session.commit()
-            flash('Added Documents',"success")
+        settingform.background_image.data.save('static/images/background.jpg')
+        flash("Background Image Changed","success")
+        db.session.commit()
     else:
-        return "Has Error"
+        flash("Forms Not Validate",'danger')
+    return redirect(url_for('admin.Dashboard'))
+
+
+@admin.route('/save_profile',methods=["POST"])
+def Save_Profile():
+    settingform = SettingForms()
+
+    if settingform.validate_on_submit():
+        settingform.profile_image.data.save('static/images/profile.jpg')
+        flash("Profile Image Changed","success")
+        db.session.commit()
+    else:
+        flash("Forms Not Validate",'danger')
+
+    return redirect(url_for('admin.Dashboard'))
+
+
+@admin.route('/change_name',methods=["POST"])
+def Change_Name():
+    settingform = SettingForms()
+    settings = Settings.query.first()
+
+    if settingform.validate_on_submit():
+        settings.FullName = settingform.FullName.data
+        flash("You'r name Changed","success")
+        db.session.commit()
+    else:
+        flash("Forms Not Validate",'danger')
+    return redirect(url_for('admin.Dashboard'))
+
+
+@admin.route('/change_about',methods=["POST"])
+def Change_Aboutme():
+    settingform = SettingForms()
+    settings = Settings.query.first()
+
+    if settingform.validate_on_submit():
+        settings.AboutME = settingform.AboutME.data
+        flash("About You Changed","success")
+        db.session.commit()
+    else:
+        flash("Forms Not Validate",'danger')
+    return redirect(url_for('admin.Dashboard'))
+
+@admin.route('/change_password',methods=["POST"])
+def change_password():
+    changepassowrdform = ChangePassowrdForm(request.form)
+    admin = Admin.query.first()
+
+    if changepassowrdform.validate_on_submit():
+        if not admin.check_password(changepassowrdform.OldPassowrd.data):
+            flash('Password Wrong',"danger")
+            return redirect(url_for('admin.Dashboard'))
+
+        if not changepassowrdform.NewPassword.data == changepassowrdform.ConfirmPassword.data:
+            flash('passwords not match',"danger")
+            return redirect(url_for('admin.Dashboard'))
+
+        admin.Password = changepassowrdform.NewPassword.data
+        db.session.commit()
+        flash("Password Changed","success")
+    else:
+        flash("Forms Not Validate",'danger')
+
+    return redirect(url_for('admin.Dashboard'))
+
+@admin.route('/add_skill',methods=["POST"])
+def add_skills():
+    skillform = SkillForm(request.form)
+
+    if skillform.validate_on_submit():
+        new_skill = Skills()
+        new_skill.Name = skillform.Name.data
+        new_skill.Value_skill = skillform.Value.data
+        db.session.add(new_skill)
+        db.session.commit()
+
+        flash("added Skill","success")
+    else:
+        flash("Forms Not Validate",'danger')
     
     return redirect(url_for('admin.Dashboard'))
+
+
+@admin.route('/add_work_sample',methods=["POST"])
+def add_work_sample():
+    worksampleform = WorkSampleForm()
+
+    if worksampleform.validate_on_submit():
+        new_work_sample = Work_Sample()
+        new_work_sample.title = worksampleform.title.data
+        new_work_sample.link = worksampleform.link.data
+
+        namefile = f"{random.randint(10000,99999)}_{worksampleform.image.data.filename}"
+        path_file = f"static/images/work_samples/{namefile}"
+        worksampleform.image.data.save(path_file)
+        new_work_sample.url_image = path_file.replace('static/','')
+        
+        db.session.add(new_work_sample)
+        db.session.commit()
+        flash('Added Work Sample',"success")
+    else:
+        flash("Forms Not Validate",'danger')
+    
+    return redirect(url_for('admin.Dashboard'))
+
+@admin.route('/add_document',methods=["POST"])
+def add_document():
+    documentsform = DocumentsForm()
+
+    if documentsform.validate_on_submit():
+        new_document = Documents()
+        new_document.title = documentsform.Title.data
+        new_document.link = documentsform.Link.data
+
+        namefile = f"{random.randint(10000,99999)}_{documentsform.Image.data.filename}"
+        path_file = f"static/images/document/{namefile}"
+        documentsform.Image.data.save(path_file)
+        new_document.url_image = path_file.replace('static/','')
+        
+        db.session.add(new_document)
+        db.session.commit()
+        flash('Added Documents',"success")
+    else:
+        flash("Forms Not Validate",'danger')
+    
+    return redirect(url_for('admin.Dashboard'))
+
+# TODO Add Func for add contect way
 
 @admin.route('delete/skill/<int:skill_id>')
 def delete_skill(skill_id):
