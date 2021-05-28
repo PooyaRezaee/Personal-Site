@@ -13,5 +13,7 @@ from views import Home
 
 # =========== BluePrints ==========
 from mod_admin import admin
+from mod_pdf import pdf
 
 app.register_blueprint(admin)
+app.register_blueprint(pdf)
