@@ -1,7 +1,11 @@
+from operator import ipow, methodcaller
+
+from sqlalchemy.sql.sqltypes import Date
 from app import db
-from sqlalchemy import Column,String,Integer,Text
+from sqlalchemy import Column,String,Integer,Text,DateTime
 from sqlalchemy.orm import validates 
 from werkzeug.security import generate_password_hash,check_password_hash
+import datetime as dt
 
 class Admin(db.Model):
     __tablename__ = 'Admin'
@@ -56,3 +60,11 @@ class Contat_way(db.Model):
     text = Column(String(),unique=True)
     url_image = Column(String())
     link = Column(Text)
+
+class Request(db.Model):
+    __tablename__ = "Requests"
+
+    Id = Column(Integer(),primary_key=True)
+    ip = Column(String(64))
+    method = Column(String(64))
+    date = Column(DateTime(), default=dt.datetime.utcnow)
