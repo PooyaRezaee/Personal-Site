@@ -112,6 +112,9 @@ def add_skills():
     skillform = SkillForm(request.form)
 
     if skillform.validate_on_submit():
+        if skillform.Value.data < 0 or skillform.Value.data > 100:
+            flash("Percentige can't must between 0 and 100",'warning')
+            return redirect(url_for('admin.Dashboard'))
         new_skill = Skills()
         new_skill.Name = skillform.Name.data
         new_skill.Value_skill = skillform.Value.data
