@@ -1,11 +1,12 @@
 from . import admin
 from flask import render_template,request,abort,flash,redirect,url_for,session
 from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm,WorkSampleForm,DocumentsForm
-from .models import Admin,Settings,Skills,Work_Sample,Documents
+from .models import Admin,Settings,Skills,Work_Sample,Documents,Request
 from app import db
 import random
 import os
 from .utils import only_admin
+from datetime import datetime
 
 @admin.route('/',methods=["GET"])
 @only_admin
@@ -21,9 +22,25 @@ def Dashboard():
     skillform = SkillForm()
     worksampleform = WorkSampleForm()
     documentsform = DocumentsForm()
+    # ============= Chart ================
+    requests = Request.query.all()
+    # last_month = {}
+    # for n in range(0,31):
+    #     last_month[f'{n}'] = 0
+    
+    # for req in requests:
+    #     print(req.date.day)
+    #     last_month[f'{req.date.day}'] += 1
 
-
-    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform)
+    last_month = []
+    for n in range(0,31):
+        last_month.append(0)
+    
+    for req in requests:
+        if req.date.month == int(datetime.now().strftime("%m")):
+            last_month[req.date.day] += 1
+    
+    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform,last_month=last_month)
 
 @admin.route('/save_background',methods=["POST"])
 @only_admin

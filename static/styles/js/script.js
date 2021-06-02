@@ -1,3 +1,8 @@
+// Values
+function range(start, end) {
+  return Array(end - start + 1).fill().map((_, idx) => start + idx)
+}
+var day_month = range(1, 30);
 // Functions
 function Blur(Bool) {
   if (Bool) {
@@ -32,28 +37,15 @@ if (status == "open") {
   }
 }
 
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
+const labels = day_month;
 const data = {
   labels: labels,
   datasets: [{
-    label: 'My First dataset',
+    label: 'Visit last month',
     borderColor: 'rgb(54, 162, 235)',
     pointBorderColor: 'rgb(0,0,0)',
     pointBorderWidth: '5',
-    data: [500 ,1000, 500, 200, 1000, 2000, 2500,2100,1700,1900,1500,1000],
+    data: last_month,
     fill:false,
   }]
 };
@@ -62,11 +54,18 @@ const data = {
 const config = {
   type: 'line',
   data,
-  options:{
+  options:{ 
+    scales: {
+      yAxes: [{
+          ticks: {
+              precision: 0
+          }
+      }]
+    }
   }
 };
 
 var myChart = new Chart(
   document.getElementById('myChart'),
   config
-);
+); 
