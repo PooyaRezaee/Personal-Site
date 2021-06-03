@@ -282,18 +282,39 @@
 
     <!-- popup form change Contact Ways -->
     <div id="contact_setting" class="centeral-item" style="display: none;">
-        <form  action="" class="popup-form bg-light bg-gradient w-25">
+        <form  action="{{ url_for('admin.add_contact_way') }}" class="popup-form bg-light bg-gradient w-25" method="POST" enctype="multipart/form-data">
             <h1 class="text-center p-2 shadow bg-warning">Change contact way</h1>
             <br>
             <ul class="list-group">
-                <li class="list-group-item active d-flex justify-content-between"><span class="w-30">Title</span> <span class="w-25">Image</span> <span class="w-20">Link</span> <span class="w-20">Action</span></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-30">+989396231180</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toplearn.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
-                <li class="list-group-item d-flex justify-content-between"><span class="w-30">  Github</span> <a href="link" class="w-25"><img src="" alt="" class="img-thumbnail" width="10px" height="10px"></a> <a href="https://toptest.com" target="_blank" class="w-20">Click</a> <a href="#" class="btn btn-outline-danger w-20">Delete</a></li>
+                <li class="list-group-item active d-flex justify-content-between">
+                    <span class="w-30">Title</span> 
+                    <span class="w-25">Image</span> 
+                    <span class="w-20">Link</span> 
+                    <span class="w-20">Action</span>
+                </li>
+                {% for contat_way in contat_ways %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="w-30">{{ contat_way.text }}</span>
+                        
+                        <div class="w-25">
+                            {% if contat_way.url_image %}
+                                <img src="{{ url_for('static' , filename=contat_way.url_image) }}" class="img-thumbnail" width="50px" height="50px">
+                            {% endif %}
+                        </div>
+
+                        <a href="{{ contat_way.link }}" target="_blank" class="w-20">Click</a> 
+                        <a href="{{ url_for('admin.delete_contact', contact_id=contat_way.Id ) }}" class="btn btn-outline-danger w-20">Delete</a>
+                    </li>
+                {% endfor %}
 
                 <br>
                 <li class="list-group-item active bg-success text-center">Add</li>
                 <li class="list-group-item d-flex justify-content-between shadow">
-                    <input type="text" class="w-30" placeholder="Title"> <input type="file" accept="image/png, image/jpeg" class="w-25 p-1" style="border: none;"> <input type="text" class="w-20" placeholder="Link"> <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
+                    {{ contactwayForm.hidden_tag() }}
+                    {{ contactwayForm.Text }} 
+                    {{ contactwayForm.Image }}
+                    {{ contactwayForm.Link }}
+                    <button type="submit" class="w-20 btn btn-outline-success" >Add</button>
                 </li><br>
                 
                 

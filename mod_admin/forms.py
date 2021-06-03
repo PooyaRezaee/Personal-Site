@@ -31,3 +31,7 @@ class DocumentsForm(FlaskForm):
     Title = StringField(validators=[DataRequired()],render_kw={"placeholder":"Title","class":"w-30"})
     Image = FileField(validators=[DataRequired()],render_kw={"accept":"image/png, image/jpeg","class":"w-25 p-1","style":"border: none;"})
     Link = StringField(render_kw={"class":"w-20","placeholder":"Link"})
+class ContactwayForm(FlaskForm):
+    Text = StringField(validators=[DataRequired()],render_kw={"placeholder":"Text","class":"w-30"})
+    Image = FileField(render_kw={"accept":"image/png, image/jpeg","class":"w-25 p-1","style":"border: none;"})
+    Link = StringField(render_kw={"class":"w-20","placeholder":"Link"})

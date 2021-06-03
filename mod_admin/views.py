@@ -1,7 +1,7 @@
 from . import admin
 from flask import render_template,request,abort,flash,redirect,url_for,session
-from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm,WorkSampleForm,DocumentsForm
-from .models import Admin,Settings,Skills,Work_Sample,Documents,Request
+from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm,WorkSampleForm,DocumentsForm,ContactwayForm
+from .models import Admin,Settings,Skills,Work_Sample,Documents,Request,Contat_way
 from app import db
 import random
 import os
@@ -16,12 +16,14 @@ def Dashboard():
     settings = Settings.query.first()
     work_samples = Work_Sample.query.all()
     documents = Documents.query.all()
+    contat_ways = Contat_way.query.all()
     # ============== FORMS ================
     settingform = SettingForms(obj=settings)
     changepassowrdform = ChangePassowrdForm()
     skillform = SkillForm()
     worksampleform = WorkSampleForm()
     documentsform = DocumentsForm()
+    contactwayForm = ContactwayForm()
     # ============= Chart ================
     requests = Request.query.all()
     # last_month = {}
@@ -40,7 +42,7 @@ def Dashboard():
         if req.date.month == int(datetime.now().strftime("%m")):
             last_month[req.date.day] += 1
     
-    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform,last_month=last_month)
+    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform,last_month=last_month,contat_ways=contat_ways,contactwayForm=contactwayForm)
 
 @admin.route('/save_background',methods=["POST"])
 @only_admin
@@ -191,7 +193,29 @@ def add_document():
     
     return redirect(url_for('admin.Dashboard'))
 
-# TODO Add Func for add contect way
+@admin.route('/add_contact',methods=["POST"])
+@only_admin
+def add_contact_way():
+    contactwayForm = ContactwayForm()
+
+    if contactwayForm.validate_on_submit():
+        new_contact = Contat_way()
+        new_contact.text = contactwayForm.Text.data
+        new_contact.link = contactwayForm.Link.data
+
+        if contactwayForm.Image.data.filename:
+            namefile = f"{random.randint(10000,99999)}_{contactwayForm.Image.data.filename}"
+            path_file = f"static/images/Contact_ways/{namefile}"
+            contactwayForm.Image.data.save(path_file)
+            new_contact.url_image = path_file.replace('static/','')
+        
+        db.session.add(new_contact)
+        db.session.commit()
+        flash('Added Contact way',"success")
+    else:
+        flash("Forms Not Validate",'danger')
+    
+    return redirect(url_for('admin.Dashboard'))
 
 @admin.route('delete/skill/<int:skill_id>')
 @only_admin
@@ -232,7 +256,22 @@ def delete_document(document_id):
         db.session.commit()
         flash('document Deleted','success')
     except :
-        flash(f'Has a problem in document => {e}','danger')
+        flash(f'Has a problem in document','danger')
+    
+    return redirect(url_for('admin.Dashboard'))
+
+@admin.route('delete/contact_way/<int:contact_id>')
+@only_admin
+def delete_contact(contact_id):
+    try:
+        contat_way = Contat_way.query.get_or_404(contact_id)
+        if contat_way.url_image != None:
+            os.remove(f"static/{contat_way.url_image}")
+        db.session.delete(contat_way)
+        db.session.commit()
+        flash('document Deleted','success')
+    except :
+        flash(f'Has a problem in document','danger')
     
     return redirect(url_for('admin.Dashboard'))
 
