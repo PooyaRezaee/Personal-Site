@@ -49,7 +49,7 @@
             <div class="innderbox">
                 {% for work_sample in work_samples %}
                     {% if work_sample.link %}
-                        <a href="{{ work_sample.link }}" class="link-dark">
+                        <a href="{{ work_sample.link }}" class="link-dark" target="_blank">
                             <img src="{{ url_for('static' , filename=work_sample.url_image) }}" alt="{{ work_sample.title }}" class="img-thumbnail" width="300px" height="300px">
                             <p class="text-center">{{ work_sample.title }}</p>
                         </a>
@@ -76,7 +76,7 @@
             <div class="innderbox">
                 {% for document in documents %}
                     {% if document.link %}
-                        <a href="{{ document.link }}" class="link-dark">
+                        <a href="{{ document.link }}" class="link-dark" target="_blank">
                             <img src="{{ url_for('static' , filename=document.url_image) }}" alt="{{ document.title }}" class="img-thumbnail" width="300px" height="300px">
                             <p class="text-center">{{ document.title }}</p>
                         </a>
@@ -110,7 +110,7 @@
                 <li>
                     {% if contat_way.url_image %}
                         <a href="{{ contat_way.link }}" target="_blank">
-                            <img src="{{ url_for('static' , filename=contat_way.url_image) }}" alt="{{ contat_way.text }}" class="rounded-circle border border-1 " width="60px" height="60px">
+                            <img src="{{ url_for('static' , filename=contat_way.url_image) }}" alt="{{ contat_way.text }}" class="img-contact">
                         </a>
                     {% else %}
                         {{ contat_way.text }}
