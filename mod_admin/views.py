@@ -1,7 +1,7 @@
 from . import admin
 from flask import render_template,request,abort,flash,redirect,url_for,session
 from .forms import LoginForm,SettingForms,ChangePassowrdForm,SkillForm,WorkSampleForm,DocumentsForm,ContactwayForm
-from .models import Admin,Settings,Skills,Work_Sample,Documents,Request,Contat_way
+from .models import Admin,Settings,Skills,Work_Sample,Documents,Request,Contact_way
 from app import db
 import random
 import os
@@ -16,7 +16,7 @@ def Dashboard():
     settings = Settings.query.first()
     work_samples = Work_Sample.query.all()
     documents = Documents.query.all()
-    contat_ways = Contat_way.query.all()
+    Contact_ways = Contact_way.query.all()
     # ============== FORMS ================
     settingform = SettingForms(obj=settings)
     changepassowrdform = ChangePassowrdForm()
@@ -42,7 +42,7 @@ def Dashboard():
         if req.date.month == int(datetime.now().strftime("%m")):
             last_month[req.date.day] += 1
     
-    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform,last_month=last_month,contat_ways=contat_ways,contactwayForm=contactwayForm)
+    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform,last_month=last_month,Contact_ways=Contact_ways,contactwayForm=contactwayForm)
 
 @admin.route('/save_background',methods=["POST"])
 @only_admin
@@ -199,7 +199,7 @@ def add_contact_way():
     contactwayForm = ContactwayForm()
 
     if contactwayForm.validate_on_submit():
-        new_contact = Contat_way()
+        new_contact = Contact_way()
         new_contact.text = contactwayForm.Text.data
         new_contact.link = contactwayForm.Link.data
 
@@ -264,10 +264,10 @@ def delete_document(document_id):
 @only_admin
 def delete_contact(contact_id):
     try:
-        contat_way = Contat_way.query.get_or_404(contact_id)
-        if contat_way.url_image != None:
-            os.remove(f"static/{contat_way.url_image}")
-        db.session.delete(contat_way)
+        Contact_way = Contact_way.query.get_or_404(contact_id)
+        if Contact_way.url_image != None:
+            os.remove(f"static/{Contact_way.url_image}")
+        db.session.delete(Contact_way)
         db.session.commit()
         flash('document Deleted','success')
     except :

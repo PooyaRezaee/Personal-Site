@@ -53,7 +53,7 @@ class Documents(db.Model):
     url_image = Column(String(256))
     link = Column(Text)
 
-class Contat_way(db.Model):
+class Contact_way(db.Model):
     __tablename__ = "contact_way"
 
     Id = db.Column(Integer(),primary_key=True)

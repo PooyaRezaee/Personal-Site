@@ -14,4 +14,4 @@ from .models import Settings
 from .models import Skills
 from .models import Work_Sample
 from .models import Documents
-from .models import Contat_way
+from .models import Contact_way

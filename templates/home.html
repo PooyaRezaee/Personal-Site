@@ -106,14 +106,14 @@
     <!-- <h3 class="">Ways Contact Wih me</h3> -->
     <div id="contectme">
         <ul class="text-light">
-            {% for contat_way in contat_ways %}
+            {% for Contact_way in Contact_ways %}
                 <li>
-                    {% if contat_way.url_image %}
-                        <a href="{{ contat_way.link }}" target="_blank">
-                            <img src="{{ url_for('static' , filename=contat_way.url_image) }}" alt="{{ contat_way.text }}" class="img-contact">
+                    {% if Contact_way.url_image %}
+                        <a href="{{ Contact_way.link }}" target="_blank">
+                            <img src="{{ url_for('static' , filename=Contact_way.url_image) }}" alt="{{ Contact_way.text }}" class="img-contact">
                         </a>
                     {% else %}
-                        {{ contat_way.text }}
+                        {{ Contact_way.text }}
                     {% endif %}
                 </li>
             {% endfor %}

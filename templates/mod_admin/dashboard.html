@@ -292,18 +292,18 @@
                     <span class="w-20">Link</span> 
                     <span class="w-20">Action</span>
                 </li>
-                {% for contat_way in contat_ways %}
+                {% for Contact_way in Contact_ways %}
                     <li class="list-group-item d-flex justify-content-between">
-                        <span class="w-30">{{ contat_way.text }}</span>
+                        <span class="w-30">{{ Contact_way.text }}</span>
                         
                         <div class="w-25">
-                            {% if contat_way.url_image %}
-                                <img src="{{ url_for('static' , filename=contat_way.url_image) }}" class="img-thumbnail" width="50px" height="50px">
+                            {% if Contact_way.url_image %}
+                                <img src="{{ url_for('static' , filename=Contact_way.url_image) }}" class="img-thumbnail" width="50px" height="50px">
                             {% endif %}
                         </div>
 
-                        <a href="{{ contat_way.link }}" target="_blank" class="w-20">Click</a> 
-                        <a href="{{ url_for('admin.delete_contact', contact_id=contat_way.Id ) }}" class="btn btn-outline-danger w-20">Delete</a>
+                        <a href="{{ Contact_way.link }}" target="_blank" class="w-20">Click</a> 
+                        <a href="{{ url_for('admin.delete_contact', contact_id=Contact_way.Id ) }}" class="btn btn-outline-danger w-20">Delete</a>
                     </li>
                 {% endfor %}
 
