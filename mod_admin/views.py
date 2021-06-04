@@ -264,10 +264,10 @@ def delete_document(document_id):
 @only_admin
 def delete_contact(contact_id):
     try:
-        Contact_way = Contact_way.query.get_or_404(contact_id)
-        if Contact_way.url_image != None:
-            os.remove(f"static/{Contact_way.url_image}")
-        db.session.delete(Contact_way)
+        contact_way = Contact_way.query.get_or_404(contact_id)
+        if contact_way.url_image != None:
+            os.remove(f"static/{contact_way.url_image}")
+        db.session.delete(contact_way)
         db.session.commit()
         flash('document Deleted','success')
     except :
