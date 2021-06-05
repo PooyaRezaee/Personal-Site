@@ -23,7 +23,16 @@ def download():
     'margin-left': '0',
     }
 
-    html_file = render_template('CV_for_pdf.html',name=name,about=about,skills=skills,work_samples=work_samples,documents=documents,contact_ways=contact_ways)
+    context = {
+        "name":name,
+        "about":about,
+        "skills":skills,
+        "work_samples":work_samples,
+        "documents":documents,
+        "contact_ways":contact_ways
+    }
+
+    html_file = render_template('CV_for_pdf.html',**context)
     pdfkit.from_string(html_file,'mod_pdf/cv.pdf',options=options)
 
     name_file = f'{name}_CV.pdf'

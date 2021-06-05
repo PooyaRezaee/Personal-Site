@@ -42,7 +42,21 @@ def Dashboard():
         if req.date.month == int(datetime.now().strftime("%m")):
             last_month[req.date.day] += 1
     
-    return render_template('mod_admin/dashboard.html',setting_form=settingform,changepassowrdform=changepassowrdform,skills=skills,skillform=skillform,worksampleform=worksampleform,work_samples=work_samples,documents=documents,documentsform=documentsform,last_month=last_month,Contact_ways=Contact_ways,contactwayForm=contactwayForm)
+    contex = {
+        "setting_form":settingform,
+        "changepassowrdform":changepassowrdform,
+        "skills":skills,
+        "skillform":skillform,
+        "worksampleform":worksampleform,
+        "work_samples":work_samples,
+        "documents":documents,
+        "documentsform":documentsform,
+        "last_month":last_month,
+        "Contact_ways":Contact_ways,
+        "contactwayForm":contactwayForm
+    }
+
+    return render_template('mod_admin/dashboard.html',**contex)
 
 @admin.route('/save_background',methods=["POST"])
 @only_admin

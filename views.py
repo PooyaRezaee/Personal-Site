@@ -18,5 +18,13 @@ def Home():
 
     db.session.add(new_request)
     db.session.commit()
+    
+    context = {
+        "settings":settings,
+        "skills":skills,
+        "work_samples":work_samples,
+        "documents":documents,
+        "Contact_ways":Contact_ways
+    }
 
-    return render_template('home.html',settings=settings,skills=skills,work_samples=work_samples,documents=documents,Contact_ways=Contact_ways)
+    return render_template('home.html',**context)
