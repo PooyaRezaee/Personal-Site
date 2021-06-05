@@ -1,0 +1,17 @@
+ul{
+    list-style: none;
+}
+pre{
+    font-size: 20px;
+}
+footer{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+img{
+    border-radius: 50%;
+}
+a{
+    text-decoration: none;
+    color: royalblue;
+}
