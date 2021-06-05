@@ -1,6 +1,3 @@
-from operator import ipow, methodcaller
-
-from sqlalchemy.sql.sqltypes import Date
 from app import db
 from sqlalchemy import Column,String,Integer,Text,DateTime
 from sqlalchemy.orm import validates 
