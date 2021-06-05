@@ -13,16 +13,16 @@ this is a Web Application with flask for Developers as Personal WebSite for CV's
 
 ## Requirements
 
-Use python3
+- Use python3
 
-install sqlite3 ( [link](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) )
+- install sqlite3 ( [link](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) )
 
 install python packages
 ```
-  pip install -r requirements.txt
- ```
+pip install -r requirements.txt
+```
 
-Set value for Varibles in '.example.env' and chagne name it to '.env'
+- Set value for Varibles in '.example.env' and chagne name it to '.env'
 
 ## Running
 ```
