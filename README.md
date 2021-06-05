@@ -17,7 +17,8 @@ this is a Web Application with flask for Developers as Personal WebSite for CV's
 
 - install sqlite3 ( [link](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) )
 
-install python packages
+- install python packages
+
 ```
 pip install -r requirements.txt
 ```
